@@ -16,7 +16,7 @@ function Login() {
         try {
             const response = await axios.post('http://localhost:5000/login', { username, password }, { withCredentials: true });
             console.log(response.data);
-            setUser({ username }); // Update user state
+            setUser({ username, role: response.data.role });
             navigate('/mainPage'); // Navigate after state update
         } catch (error) {
             console.error(error.response ? error.response.data : error.message);

@@ -1,28 +1,18 @@
 import React from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import CipherTool from "./CipherTool";
+import './App.css'
+import Navbar from "./Navbar";
 
-axios.defaults.withCredentials = true; // Important: this will allow cookies to be sent
+axios.defaults.withCredentials = true;
 
 function MainPage() {
-    const navigate = useNavigate();
 
-    const handleLogout = async () => {
-        try {
-            // No need to send session ID, as it should be handled by cookies
-            await axios.post('http://localhost:5000/logout');
-            navigate('/login');
-        } catch (error) {
-            console.error('Logout failed:', error);
-            // Handle error, possibly by showing a message to the user
-        }
-    };
 
     return (
         <div className="main-page-container">
-            <h1>Main Page</h1>
-            {/* Additional main page content goes here */}
-            <button onClick={handleLogout}>Logout</button>
+            <Navbar></Navbar>
+            <CipherTool></CipherTool>
         </div>
     );
 }

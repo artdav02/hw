@@ -123,8 +123,8 @@ app.post('/login', async (req, res) => {
             const passwordIsValid = await bcrypt.compare(password, user.password);
 
             if (passwordIsValid) {
-                req.session.user = { username: req.body.username }; // Store user information in session
-                res.send({ message: 'Login successful' });
+                req.session.user = { username: req.body.username, role: user.role };
+                res.send({ message: 'Login successful', role: user.role });
             } else {
                 return res.status(401).send({ message: 'Password is incorrect' });
             }
@@ -135,7 +135,6 @@ app.post('/login', async (req, res) => {
 });
 
 app.get('/mainPage', isAuthenticated, (req, res) => {
-    // Only authenticated users can access this
     res.send({ message: 'This is the main page', user: req.session.user });
 });
 
@@ -156,3 +155,50 @@ app.get('/checkAuth', (req, res) => {
     }
 });
 
+function applyVigenere(text, key, encrypt = true) {
+    let result = '';
+    for (let i = 0, j = 0; i < text.length; i++) {
+        const c = text.charCodeAt(i);
+        if (encrypt) {
+            result += String.fromCharCode((c + key.charCodeAt(j)) % 256);
+        } else {
+            result += String.fromCharCode((256 + c - key.charCodeAt(j)) % 256);
+        }
+        j = (j + 1) % key.length;
+    }
+    return result;
+}
+
+function applyCaesar(text, shift, encrypt = true) {
+    return text.split('').map(char => {
+        let shiftedCharCode = char.charCodeAt(0);
+        if (encrypt) {
+            shiftedCharCode = (shiftedCharCode + shift) % 256;
+        } else {
+            shiftedCharCode = (256 + shiftedCharCode - shift) % 256;
+        }
+        return String.fromCharCode(shiftedCharCode);
+    }).join('');
+}
+
+app.get('/listOfUsers', isAuthenticated, (req, res) => {
+    if (req.session.user.role !== 'admin') {
+        return res.status(403).send({ message: 'Access denied' });
+    }
+
+    const sql = 'SELECT userID, username, password, role FROM users';
+    db.query(sql, (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send({ message: 'Error fetching users' });
+        }
+
+        const usersWithEncryptedUsernames = result.map(user => ({
+            ...user,
+            usernameCaesar: applyCaesar(user.username, 5, true),
+            usernameVigenere: applyVigenere(user.username, 'key', true)
+        }));
+
+        res.send(usersWithEncryptedUsernames);
+    });
+});

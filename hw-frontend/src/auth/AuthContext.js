@@ -11,15 +11,16 @@ export const AuthProvider = ({ children }) => {
         axios.get('http://localhost:5000/checkAuth', { withCredentials: true })
             .then(response => {
                 if (response.data.isAuthenticated) {
-                    setUser(response.data.user);
+                    setUser(response.data.user); // Assume this includes the role
                 }
-                setIsLoading(false); // Auth check is complete
+                setIsLoading(false);
             })
             .catch(error => {
                 console.error('Auth check failed:', error);
-                setIsLoading(false); // Auth check is complete, even if it failed
+                setIsLoading(false);
             });
     }, []);
+
 
     return (
         <AuthContext.Provider value={{ user, setUser }}>

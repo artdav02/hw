@@ -95,3 +95,115 @@
   cursor: pointer;
   border-radius: 5px;
 }
+.main-page-container{
+  background-color: #F9E6E6;
+  height: 100vh;
+  width: 100%;
+  padding-top: 100px;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+.navbar{
+  display: flex;
+  justify-content: space-between;
+}
+.mainPageLogo{
+  font-weight: bold;
+  font-size: 36px;
+  color: #474BCA;
+}
+.logoutButton{
+  font-weight: bold;
+  font-size: 20px;
+  padding: 10px 40px;
+  color: white;
+  background-color: #474BCA;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.cipherContainer{
+  text-align: center;
+  margin-top: 60px;
+}
+.cipherLogo{
+  font-weight: bold;
+  font-size: 36px;
+  color: #474BCA;
+  margin-bottom: 20px;
+}
+.labelText{
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 22px;
+  color: #474BCA;
+  text-align: left;
+}
+.inputCypher{
+  text-align: left;
+  width: 400px;
+}
+.inputCypherValue{
+  width: 400px;
+  border: 1px solid #474BCA;
+  border-radius: 10px;
+  padding: 10px 20px;
+  resize: none;
+}
+.centredContent{
+  width: 400px;
+  margin: 0 auto;
+}
+.labelTextResult{
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 30px;
+  color: #000000;
+}
+.processButton{
+  font-weight: bold;
+  font-size: 20px;
+  padding: 10px 40px;
+  color: white;
+  background-color: #474BCA;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.listContainer{
+  background-color: #F9E6E6;
+  height: 100vh;
+  width: 100%;
+  padding-top: 100px;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+.userLogo{
+  font-weight: bold;
+  font-size: 36px;
+  color: #474BCA;
+  margin-bottom: 20px;
+  text-align: center;
+  margin-top: 50px;
+}
+.userTable{
+  width: 100%;
+  border-collapse: collapse;
+}
+.userHeader{
+  text-align: left;
+  font-weight: bold;
+  font-size: 18px;
+  color: #474BCA;
+
+}
+.userRow{
+  border: 1px solid #474BCA;
+  font-weight: bold;
+  font-size: 18px;
+}
+.padding{
+  padding: 20px 5px;
+}

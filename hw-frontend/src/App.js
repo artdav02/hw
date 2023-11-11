@@ -5,7 +5,9 @@ import LoginPage from './Login'; // Your login component
 import MainPage from './MainPage'; // Your main page component
 import RegisterPage from './Register'; // Your register component
 import ProtectedRoute from './auth/ProtectedRoute'; // Your protected route component
-import { AuthProvider, useAuth } from './auth/AuthContext'; // Your auth context
+import AdminRoute from "./auth/AdminRoute";
+import { AuthProvider, useAuth } from './auth/AuthContext';
+import ListOfUsers from "./ListOfUsers"; // Your auth context
 
 const AppWrapper = () => {
     return (
@@ -29,6 +31,14 @@ const App = () => {
                         <ProtectedRoute>
                             <MainPage />
                         </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/listOfUsers"
+                    element={
+                        <AdminRoute>
+                            <ListOfUsers />
+                        </AdminRoute>
                     }
                 />
                 {/* Redirect users to /login if not authenticated */}
