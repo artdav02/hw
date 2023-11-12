@@ -35,8 +35,8 @@ function CipherTool() {
     const [key, setKey] = useState('');
     const [shift, setShift] = useState(0);
     const [result, setResult] = useState('');
-    const [cipherType, setCipherType] = useState('vigenere'); // or 'caesar'
-    const [action, setAction] = useState('encrypt'); // or 'decrypt'
+    const [cipherType, setCipherType] = useState('vigenere');
+    const [action, setAction] = useState('encrypt');
 
     const handleTextChange = (e) => setText(e.target.value);
     const handleKeyChange = (e) => setKey(e.target.value);

@@ -10,20 +10,20 @@ require('dotenv').config();
 const app = express();
 
 app.use(cors({
-    origin: ['http://localhost:3000'], // replace with your frontend server address
+    origin: ['http://localhost:3000'],
     methods: ['GET', 'POST'],
-    credentials: true // enable credentials for CORS
+    credentials: true
 }));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(session({
-    secret: 'secretcode', // You should use a real secret here
+    secret: 'secret',
     resave: true,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        secure: false, // in production, set to true and use HTTPS
-        maxAge: 2 * 60 * 60 * 1000 // 2 hours, for example
+        secure: false,
+        maxAge: 2 * 60 * 60 * 1000
     }
 }));
 
@@ -56,25 +56,22 @@ app.post('/register', async (req, res) => {
     try {
         let { username, password } = req.body;
 
-        // Basic validation rules
+
         const usernameMinLength = 3;
         const usernameMaxLength = 50;
         const passwordMinLength = 6;
         const passwordMaxLength = 50;
 
-        // Check username length
+
         if (username.length < usernameMinLength || username.length > usernameMaxLength) {
             return res.status(400).send({ message: `The username must be between ${usernameMinLength} and ${usernameMaxLength} characters.` });
         }
 
-        // Check password length
+
         if (password.length < passwordMinLength || password.length > passwordMaxLength) {
             return res.status(400).send({ message: `The password must be between ${passwordMinLength} and ${passwordMaxLength} characters.` });
         }
 
-        // Further validation checks can be added here (e.g., regex for special characters)
-
-        // Check if the username already exists
         const checkUsernameSql = 'SELECT * FROM users WHERE username = ?';
         db.query(checkUsernameSql, [username], async (checkErr, checkResult) => {
             if (checkErr) {
@@ -82,10 +79,10 @@ app.post('/register', async (req, res) => {
             }
 
             if (checkResult.length > 0) {
-                // Username already exists
-                return res.status(409).send({ message: 'Username already taken' }); // 409 Conflict
+
+                return res.status(409).send({ message: 'Username already taken' });
             } else {
-                // Username does not exist, proceed with registration
+
                 const hashedPassword = await bcrypt.hash(password, 8);
                 const newUser = {
                     username: username,
@@ -98,7 +95,7 @@ app.post('/register', async (req, res) => {
                     if (insertErr) {
                         return res.status(500).send({ message: 'Error registering user' });
                     }
-                    req.session.user = { username: username }; // Log in the user by creating a session
+                    req.session.user = { username: username };
                     res.send({ message: 'User registered and logged in', userId: result.insertId });
                 });
             }

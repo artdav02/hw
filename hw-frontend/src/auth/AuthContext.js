@@ -5,13 +5,13 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [isLoading, setIsLoading] = useState(true); // Track whether the auth check is complete
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         axios.get('http://localhost:5000/checkAuth', { withCredentials: true })
             .then(response => {
                 if (response.data.isAuthenticated) {
-                    setUser(response.data.user); // Assume this includes the role
+                    setUser(response.data.user);
                 }
                 setIsLoading(false);
             })

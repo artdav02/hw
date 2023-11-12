@@ -1,13 +1,12 @@
-// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import LoginPage from './Login'; // Your login component
-import MainPage from './MainPage'; // Your main page component
-import RegisterPage from './Register'; // Your register component
-import ProtectedRoute from './auth/ProtectedRoute'; // Your protected route component
+import LoginPage from './Login';
+import MainPage from './MainPage';
+import RegisterPage from './Register';
+import ProtectedRoute from './auth/ProtectedRoute';
 import AdminRoute from "./auth/AdminRoute";
 import { AuthProvider, useAuth } from './auth/AuthContext';
-import ListOfUsers from "./ListOfUsers"; // Your auth context
+import ListOfUsers from "./ListOfUsers";
 
 const AppWrapper = () => {
     return (
@@ -41,7 +40,6 @@ const App = () => {
                         </AdminRoute>
                     }
                 />
-                {/* Redirect users to /login if not authenticated */}
                 <Route
                     path="*"
                     element={user ? <Navigate to="/mainPage" /> : <Navigate to="/login" />}
